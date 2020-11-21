@@ -38,7 +38,7 @@ object FunctionDefSpec extends PostgresRunnableSpec with ShopSchema {
       assertion.mapErrorCause(cause => Cause.stackless(cause.untraced))
     },
     testM("quote_nullable") {
-      val query = select(QuoteNullable(30.0)) from customers
+      val query = select(QuoteNullable(Some(30.0))) from customers
 
       val expected = "'30.0'"
 
@@ -51,7 +51,8 @@ object FunctionDefSpec extends PostgresRunnableSpec with ShopSchema {
       assertion.mapErrorCause(cause => Cause.stackless(cause.untraced))
     },
     testM("quote_nullable with None") {
-      val query = select(QuoteNullable(None.asInstanceOf[Option[Double]])) from customers
+      val q: Option[Double] = None
+      val query = select(QuoteNullable(q)) from customers
 
       val expected = "'30.0'"
 

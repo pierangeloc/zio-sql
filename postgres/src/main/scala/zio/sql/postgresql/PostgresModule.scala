@@ -8,7 +8,7 @@ trait PostgresModule extends Jdbc { self =>
 
   object PostgresFunctionDef {
     val Sind = FunctionDef[Double, Double](FunctionName("sind"))
-    def QuoteNullable[A: NotNull] = FunctionDef[Option[A], String](FunctionName("quote_nullable"))
+    def QuoteNullable[A: TypeTag.NotNull] = FunctionDef[Option[A], Option[String]](FunctionName("quote_nullable"))
   }
 
   override def renderRead(read: self.Read[_]): String = {
